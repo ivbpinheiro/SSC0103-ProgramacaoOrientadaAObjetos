@@ -6,10 +6,10 @@ public class Placar {
     }
 
     public int getScore(){
-
+        return 0;
+    }
+    public java.lang.String toString(){
+        return " ";
     }
 
-    public int getScore(){
-
-    }
 }
