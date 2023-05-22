@@ -1,6 +1,19 @@
-public class RolaDados {
-    public RolaDados(int n){
+import java.util.ArrayList;
+import java.util.Collection;
 
+public class RolaDados {
+    private final Collection<Dado> listaDeDados = new ArrayList<Dado>();
+
+    public Collection<Dado> getListaDeDados() {
+        return listaDeDados;
+    }
+
+    public RolaDados(int n){
+        Random rd = new Random();
+        for (int i = 0; i < n; i++) {
+            Dado dado = new Dado(6, rd.getRandomNumber());
+            listaDeDados.add(dado);
+        }
     }
 
     public int[] rolar(){

@@ -4,7 +4,7 @@ public class Dado {
 
     private int ladoSelecionado = -1;
 
-    public Dado(int n){
+    public Dado(int n, int randomNumber){
         this.numLados = n;
     }
 
