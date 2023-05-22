@@ -9,7 +9,7 @@ public class Random {
     }
 
     public Random(){
-        this.semente = (int) Calendar.getInstance().getTimeInMillis() % 7;
+        this.semente = ((int) Calendar.getInstance().getTimeInMillis() % 6) + 1;
     }
 
     public Random(int k){
