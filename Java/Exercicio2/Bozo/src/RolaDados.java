@@ -1,41 +1,70 @@
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 public class RolaDados {
-    protected final ArrayList<Dado> listaDeDados = new ArrayList<Dado>();
 
-    public ArrayList<Dado> getListaDeDados() {
-        return listaDeDados;
-    }
+    private int nDados;
+    private Dado[] vetDado;
+    private Random r = new Random();
 
     public RolaDados(int n){
-        for (int i = 0; i < n; i++) {
-            this.listaDeDados.add(new Dado());
+        nDados = n;
+        vetDado = new Dado[n];
+        for(int i=0; i < n; i++){
+            vetDado[i] = new Dado();
+            try{
+                TimeUnit.MILLISECONDS.sleep(r.getIntRand(100)+100);
+            }catch(Exception e){
+                System.out.println("Erro: RolaDados: Randomização");
+                System.exit(-1);
+            }
         }
     }
 
-    public int[] rolar() {
-        int[] valoresDados = new int[listaDeDados.size()];
-        int valorAuxiliar;
-        for (int i = 0; i < listaDeDados.size(); i++) {
-            Dado dado = listaDeDados.get(i);
-            dado.rolar();
-            valorAuxiliar = dado.getLado();
-            valoresDados[i] = valorAuxiliar;
+    public int[] rolar(){
+        int[] novos_valores = new int[nDados];
+        for(int i=0; i < nDados; i++){
+            novos_valores[i] = vetDado[i].rolar();
         }
-        return valoresDados;
+        return novos_valores;
     }
-
     public int[] rolar(boolean[] quais){
-        return new int[]{0};
+        int[] novos_valores = new int[nDados];
+        for(int i=0; i < nDados; i++){
+            if(quais[i]) novos_valores[i] = vetDado[i].rolar();
+            else novos_valores[i] = vetDado[i].getLado();
+        }
+        return novos_valores;
     }
 
     public int[] rolar(java.lang.String s){
-        return new int[]{0};
+        boolean[] b = new boolean[nDados];
+        String[] r = s.split(" ");
+
+        Arrays.fill(b, false);
+        if(s.length() == 0 || !Character.isDigit(s.charAt(0))) return rolar(b);
+        for(int i=0; i<s.length() - s.replace(" ", "").length()+1; i++)
+            if(Integer.parseInt(r[i])-1 < nDados) b[Integer.parseInt(r[i])-1] = true;
+
+        return rolar(b);
     }
 
-    public static void main(java.lang.String[] args)
-            throws java.lang.Exception{
+    @Override
+    public java.lang.String toString(){
+        String[] s = new String[nDados];
+        String r="";
 
+        for(int i=0;i<nDados;i++) s[i] = vetDado[i].toString();
+        for(int i=0;i<5;i++){ //5 = numero de linhas
+            for(int j=0;j<nDados;j++){
+                r += s[j].substring(i*8, i*8 + 7);
+                if(j<nDados-1) r += "\t";
+                else r+="\n";
+            }
+        }
+        return r;
+    }
+
+    public static void main(java.lang.String[] args) throws java.lang.Exception{
     }
 }

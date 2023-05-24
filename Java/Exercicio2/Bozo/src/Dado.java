@@ -1,44 +1,40 @@
-import java.util.ArrayList;
-
 public class Dado {
-    private Random random;
-    ArrayList<String> lados;
+    private int ladoAtual = -1;
+    private int numLados = 6;
+    private Random random = new Random();
 
-    private int numLados;
-
-    private int ladoSelecionado;
-
-    public Dado(){
-        this.numLados = 6;
-    }
-    public Dado(int n){
-        this.numLados = n;
+    public Dado() {
+        ladoAtual = rolar();
     }
 
-    public int getLado(){
-        return this.ladoSelecionado;
+    public Dado(int numLados) {
+        this.numLados = numLados;
+        ladoAtual = rolar();
+    }
+
+    public int getLado() {
+        return ladoAtual;
     }
 
     public int rolar() {
-        Random random = new Random(); // Cria uma instância da classe Random
-        this.ladoSelecionado = random.getIntRand(6); // Gera um número aleatório de 1 a 6
-        return this.ladoSelecionado; // Retorna o número aleatório gerado
+        ladoAtual = random.getIntRand(numLados + 1);
+        while (ladoAtual <= 0) {
+            ladoAtual = random.getIntRand(numLados + 1);
+        }
+        return ladoAtual;
     }
 
-    public java.lang.String toString(){
-        lados = new ArrayList<>();
-        lados.add("");
-        lados.add("\n  1  \n+-----+\n|     |\n|  *  |\n|     |\n+-----+");
-        lados.add("\n   2  \n+-----+\n|*    |\n|     |\n|    *|\n+-----+");
-        lados.add("\n   3  \n+-----+\n|*    |\n|  *  |\n|    *|\n+-----+");
-        lados.add("\n   4  \n+-----+\n|*   *|\n|     |\n|*   *|\n+-----+");
-        lados.add("\n   5  \n+-----+\n|*   *|\n|  *  |\n|*   *|\n+-----+");
-        lados.add("\n   6  \n+-----+\n|*   *|\n|*   *|\n|*   *|\n+-----+");
-        return lados.get(this.ladoSelecionado);
+    @Override
+    public String toString() {
+        String s = "+-----+\n";
+        switch(getLado()){
+            case 1: return ("+--1--+\n|     |\n|  *  |\n|     |\n+--1--+");
+            case 2: return ("+--2--+\n|*    |\n|     |\n|    *|\n+--2--+");
+            case 3: return ("+--3--+\n|*    |\n|  *  |\n|    *|\n+--3--+");
+            case 4: return ("+--4--+\n|*   *|\n|     |\n|*   *|\n+--4--+");
+            case 5: return ("+--5--+\n|*   *|\n|  *  |\n|*   *|\n+--5--+");
+            case 6: return ("+--6--+\n|* * *|\n|     |\n|* * *|\n+--6--+");
+        }
+        return " ";
     }
-
-    public static void main(java.lang.String[] args){
-
-    }
-
 }

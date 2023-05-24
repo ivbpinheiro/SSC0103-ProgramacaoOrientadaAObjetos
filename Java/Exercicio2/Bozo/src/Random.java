@@ -1,40 +1,34 @@
 import java.util.Calendar;
-
 public class Random {
-    //setPassword(Calendar.getInstance().getTimeInMillis() % number);
-    private int semente = 10;
+    private long p = 2147483648l;
+    private long m = 843314861;
+    private long a = 453816693;
 
-    private int randomNumber;
+    private long xi;
 
-    public int getRandomNumber() {
-        return randomNumber;
+
+    public double getRand() {
+        xi = (a + m * xi) % p;
+        double d = xi;
+        return d / p;
     }
 
-    public int getSemente() {
-        return semente;
+    public int getIntRand(int max)
+    {
+        double d = getRand() * max;
+        return (int) d;
     }
 
-    public Random(){
-        this.randomNumber = ((int) Calendar.getInstance().getTimeInMillis() % 6) + 1;
+    public void setSemente(int semente) {
+        xi = semente;
     }
 
     public Random(int k){
-        this.randomNumber = ((int) Calendar.getInstance().getTimeInMillis() + k) % 6 + 1;
-        this.semente = k;
-    }
-    public int getIntRand(int max) {
-        return ((int) Calendar.getInstance().getTimeInMillis() % (max - 1)) + 1;
+        xi = k;
     }
 
-    public double getRand() {
-        long currentTime = Calendar.getInstance().getTimeInMillis();
-        double randomValue = (currentTime % 1000) / 1000.0;
-        return randomValue;
-    }
-
-
-    public void setSemente(int semente){
-        this.semente = semente;
+    public Random() {
+        xi = Calendar.getInstance().getTimeInMillis() % p;
     }
 
 }

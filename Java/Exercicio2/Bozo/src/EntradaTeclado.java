@@ -1,18 +1,26 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class EntradaTeclado {
-    public static double leDouble()
-            throws java.io.IOException,
-            java.lang.NumberFormatException{
-        return 0.1;
+    static InputStreamReader isr = new InputStreamReader(System.in);
+    static BufferedReader br = new BufferedReader(isr);
+
+    public static String leString() throws IOException {
+        String x;
+        x = br.readLine();
+        return x;
+
     }
 
-    public static int leInt()
-            throws java.io.IOException,
-            java.lang.NumberFormatException{
-        return -1;
+    public static int leInt() throws IOException {
+        String x = leString();
+        return Integer.parseInt(x);
     }
 
-    public static java.lang.String leString()
-            throws java.io.IOException{
-        return " ";
+    public static double leDouble() throws IOException {
+        String x = leString();
+        return Double.parseDouble(x);
+
     }
 }
