@@ -2,21 +2,28 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class RolaDados {
-    protected final Collection<Dado> listaDeDados = new ArrayList<Dado>();
+    protected final ArrayList<Dado> listaDeDados = new ArrayList<Dado>();
 
-    public Collection<Dado> getListaDeDados() {
+    public ArrayList<Dado> getListaDeDados() {
         return listaDeDados;
     }
 
     public RolaDados(int n){
         for (int i = 0; i < n; i++) {
-            Dado dado = new Dado();
-            this.listaDeDados.add(dado);
+            this.listaDeDados.add(new Dado());
         }
     }
 
-    public int[] rolar(){
-        return new int[]{0};
+    public int[] rolar() {
+        int[] valoresDados = new int[listaDeDados.size()];
+        int valorAuxiliar;
+        for (int i = 0; i < listaDeDados.size(); i++) {
+            Dado dado = listaDeDados.get(i);
+            dado.rolar();
+            valorAuxiliar = dado.getLado();
+            valoresDados[i] = valorAuxiliar;
+        }
+        return valoresDados;
     }
 
     public int[] rolar(boolean[] quais){

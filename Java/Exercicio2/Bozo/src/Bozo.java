@@ -7,11 +7,17 @@ public class Bozo {
 //        System.out.println(rd.getRand());
 //        rd.setSemente(100);
 //        System.out.println(rd.getSemente());
-//        RolaDados rola = new RolaDados(6);
+        RolaDados rola = new RolaDados(6);
+        int[] resultados = rola.rolar();
+        for (int valor : resultados) {
+            System.out.println(valor);
+        }
+
 //        System.out.println(rola.getListaDeDados());
-        Dado dd = new Dado();
-        //System.out.println(dd.rolar());
-        dd.rolar();
-        System.out.println(dd);
+//        System.out.println(rola.rolar());
+//        Dado dd = new Dado();
+//        //System.out.println(dd.rolar());
+//        dd.rolar();
+//        System.out.println(dd);
     }
 }
