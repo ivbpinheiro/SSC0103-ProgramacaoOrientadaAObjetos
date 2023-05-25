@@ -1,62 +1,56 @@
-import java.io.IOException;
-
 public class Bozo {
-    public static void main(String[] args) throws IOException {
-        int[] dados = new int[5];
+    public static void main(String[] args) {
+        int[] dados;
         String entrada;
         RolaDados r = new RolaDados(5);
         Placar p = new Placar();
-
+        System.out.println("Bem-vindx ao Bozó!!! ");
+        System.out.println("Siga as instruções abaixo:");
+        System.out.println();
         for (int i = 0; i < 10; i++) {
             while (true) {
-                System.out.println("Pressione ENTER para iniciar uma rodada: ");
-                entrada = EntradaTeclado.leString();
-                if (entrada.length() != 0) {
+                try {
+                    System.out.println("Pressione ENTER para iniciar a rodada: ");
+                    entrada = EntradaTeclado.leString();
+                    if (entrada.isEmpty()) break;
+                } catch (Exception eIn) {
                     System.out.println("Entrada inválida. Digite novamente.");
-                    continue;
                 }
-                break;
             }
 
             dados = r.rolar();
-            System.out.printf("%s", r.toString());
+            System.out.println(r.toString());
 
-            while (true) {
-                System.out.println("Escolha os dados que serão sorteados" +
-                        "ou aperte ENTER para permanecer com os dados atuais: ");
-                entrada = EntradaTeclado.leString();
-                if (entrada.length() != 0) {
-                    dados = r.rolar(entrada);
-                    System.out.printf("%s", r.toString());
+            for (int j = 0; j < 2; j++) {
+                try {
+                    System.out.println("Escolha os dados que serão rolados (coloque os números espaçados)");
+                    System.out.println("ou aperte ENTER para permanecer com os dados atuais: ");
+                    entrada = EntradaTeclado.leString();
+                    if (!entrada.isEmpty()) dados = r.rolar(entrada);
+                } catch (Exception eIn) {
+                    System.out.println("Inválido! Digite novamente.");
+                    j--;
                 }
-                break;
+                System.out.println(r.toString());
             }
 
+            System.out.println(p.toString());
+
             while (true) {
-                System.out.println("Escolha os dados que serão sorteados" +
-                        "ou aperte ENTER para permanecer com os dados atuais: ");
-                entrada = EntradaTeclado.leString();
-                if (entrada.length() != 0) {
-                    dados = r.rolar(entrada);
-                    System.out.printf("%s\n", r.toString());
-                    System.out.printf("%s\n", p.toString());
-                    break;
+                try {
+                    System.out.print("Digite a posição que você quer ocupar: ");
+                    int posIn = EntradaTeclado.leInt();
+                    if (posIn > 0) {
+                        p.add(posIn, dados);
+                        break;
+                    }
+                    System.out.println("Inválido! Digite novamente.");
+                } catch (Exception eIn) {
+                    System.out.println("Inválido! Digite novamente.");
                 }
             }
 
-            int posIn;
-            while (true) {
-                System.out.print("Digite a posição que você quer ocupar: ");
-                posIn = EntradaTeclado.leInt();
-                if (posIn <= 0) {
-                    System.out.println("Valor inválido. Digite novamente.");
-                    continue;
-                }
-                break;
-            }
-
-            p.add(posIn, dados);
-            System.out.printf("%s\n", p.toString());
+            System.out.println(p.toString());
         }
 
         System.out.println("Placar final: " + p.getScore());

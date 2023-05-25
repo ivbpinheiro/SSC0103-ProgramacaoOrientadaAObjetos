@@ -1,34 +1,29 @@
 import java.util.Calendar;
 public class Random {
-    private long p = 2147483648l;
-    private long m = 843314861;
-    private long a = 453816693;
-
-    private long xi;
-
+    private static final long LIMITE_SUPERIOR = 9223372036854775807L;
+    private long estado;
 
     public double getRand() {
-        xi = (a + m * xi) % p;
-        double d = xi;
-        return d / p;
+        long multiplicador = 134456456;
+        long incremento = 8121533;
+        estado = (incremento + multiplicador * estado) % LIMITE_SUPERIOR;
+        return (double) estado / LIMITE_SUPERIOR;
     }
 
-    public int getIntRand(int max)
-    {
-        double d = getRand() * max;
-        return (int) d;
+    public int getIntRand(int max) {
+        return (int) (getRand() * max);
     }
 
     public void setSemente(int semente) {
-        xi = semente;
+        this.estado = semente;
     }
 
-    public Random(int k){
-        xi = k;
+    public Random(int semente){
+        this.estado = semente;
     }
 
     public Random() {
-        xi = Calendar.getInstance().getTimeInMillis() % p;
+        this.estado = Calendar.getInstance().getTimeInMillis() % LIMITE_SUPERIOR;
     }
 
 }
