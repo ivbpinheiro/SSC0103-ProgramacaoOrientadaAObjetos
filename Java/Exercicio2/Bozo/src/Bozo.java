@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Bozo {
     public static void main(String[] args) {
         int[] dados;
@@ -7,6 +10,8 @@ public class Bozo {
         System.out.println("Bem-vindx ao Bozó!!! ");
         System.out.println("Siga as instruções abaixo:");
         System.out.println();
+
+        List<String> lista2 = new ArrayList<>();
 
         int rodadas = 10;
         int contador = 0;
